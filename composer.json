@@ -1,0 +1,27 @@
+{
+    "name": "yosugi/functional-tools.php",
+    "description": "Functional tools for PHP",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "yosugi",
+            "email": "yosugi@users.noreply.github.com"
+        }
+    ],
+    "require": {
+        "php": "^7.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "FunctionalTools\\": "src/"
+        }
+    },
+    "scripts": {
+        "test": [
+            "phpunit"
+        ]
+    }
+}
