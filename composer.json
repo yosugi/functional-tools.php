@@ -1,6 +1,8 @@
 {
     "name": "yosugi/functional-tools.php",
-    "description": "Functional tools for PHP",
+    "type": "library",
+    "description": "Simple functional tools for PHP",
+    "homepage": "https://github.com/yosugi/functional-tools.php",
     "license": "MIT",
     "authors": [
         {

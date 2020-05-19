@@ -6,6 +6,12 @@ Simple functional tools in PHP
 
 see tests/
 
+## Installation
+
+```
+$ composer require yosugi/functional-tools.php
+```
+
 ## Methods
 
 ### Arrays
