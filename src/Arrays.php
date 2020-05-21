@@ -80,18 +80,14 @@ class Arrays
 
     public static function keys(?array $argInputs = null) //: callable|array
     {
-        $keysFn = function ($inputs) {
-            return array_keys($inputs);
-        };
+        $keysFn = fn ($inputs) => array_keys($inputs);
 
         return $argInputs === null ? $keysFn : $keysFn($argInputs);
     }
 
     public static function values(?array $argInputs = null) //: callable|array
     {
-        $valuesFn = function ($inputs) {
-            return array_values($inputs);
-        };
+        $valuesFn = fn ($inputs) => array_values($inputs);
 
         return $argInputs === null ? $valuesFn : $valuesFn($argInputs);
     }
