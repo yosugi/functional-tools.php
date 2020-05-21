@@ -59,20 +59,36 @@ class Collections
         return $reduceFn($argInputs);
     }
 
-    public static function head(iterable $argInputs) //: array
+    public static function head(?iterable $argInputs = null) //: callable|array
     {
-        foreach ($argInputs as $value) {
-            return $value;
+        $headFn = function ($inputs) {
+            foreach ($inputs as $value) {
+                return $value;
+            }
+        };
+
+        if ($argInputs === null) {
+            return $headFn;
         }
+
+        return $headFn($argInputs);
     }
 
-    public static function rest(iterable $argInputs) //: array
+    public static function rest(?iterable $argInputs = null) //: callable|array
     {
-        $results = [];
-        foreach ($argInputs as $value) {
-            $results[] = $value;
+        $restFn = function ($inputs) {
+            $results = [];
+            foreach ($inputs as $value) {
+                $results[] = $value;
+            }
+            return array_slice($results, 1);
+        };
+
+        if ($argInputs === null) {
+            return $restFn;
         }
-        return array_slice($results, 1);
+
+        return $restFn($argInputs);
     }
 
     public static function sortBy(callable $fn, ?iterable $argInputs = null) //: callable|array

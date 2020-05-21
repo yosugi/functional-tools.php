@@ -37,48 +37,89 @@ class Arrays
         return $setFn($argInputArray);
     }
 
-    public static function flatten(array $argInputs) //: array
+    public static function flatten(?array $argInputs = null) //: callable|array
     {
-        $results = [];
-        foreach ($argInputs as $value) {
-            if (!is_array($value)) {
-                $results[] = $value;
-                continue;
+        $flattenFn = function ($inputs) {
+            $results = [];
+            foreach ($inputs as $value) {
+                if (!is_array($value)) {
+                    $results[] = $value;
+                    continue;
+                }
+
+                // $values = static::flatten($value);
+                $values = self::flatten($value);
+                $results = array_merge($results, $values);
             }
+            return $results;
+        };
 
-            $values = static::flatten($value);
-            $results = array_merge($results, $values);
+        if ($argInputs === null) {
+            return $flattenFn;
         }
-        return $results;
+
+        return $flattenFn($argInputs);
     }
 
-    public static function toPairs(array $argInputs) //: array
+    public static function toPairs(?array $argInputs = null) //: callable|array
     {
-        $resultPairs = [];
-        foreach ($argInputs as $key => $value) {
-            $resultPairs[] = [$key, $value];
+        $toPairsFn = function ($inputs) {
+            $resultPairs = [];
+            foreach ($inputs as $key => $value) {
+                $resultPairs[] = [$key, $value];
+            }
+            return $resultPairs;
+        };
+
+        if ($argInputs === null) {
+            return $toPairsFn;
         }
-        return $resultPairs;
+
+        return $toPairsFn($argInputs);
     }
 
-    public static function fromPairs(array $argInputs) //: array
+    public static function fromPairs(?array $argInputs = null) //: callable|array
     {
-        $resultMap  = [];
-        foreach ($argInputs as $pairs) {
-            list($key, $value) = $pairs;
-            $resultMap[$key] = $value;
+        $fromPairsFn = function ($inputs) {
+            $resultMap  = [];
+            foreach ($inputs as $pairs) {
+                list($key, $value) = $pairs;
+                $resultMap[$key] = $value;
+            }
+            return $resultMap;
+        };
+
+        if ($argInputs === null) {
+            return $fromPairsFn;
         }
-        return $resultMap;
+
+        return $fromPairsFn($argInputs);
     }
 
-    public static function keys(array $argInputs) //: array
+    public static function keys(?array $argInputs = null) //: callable|array
     {
-        return array_keys($argInputs);
+        $keysFn = function ($inputs) {
+            return array_keys($inputs);
+        };
+
+        if ($argInputs === null) {
+            return $keysFn;
+        }
+
+        return $keysFn($argInputs);
     }
 
-    public static function values(array $argInputs) //: array
+    public static function values(?array $argInputs = null) //: callable|array
     {
-        return array_values($argInputs);
+        $valuesFn = function ($inputs) {
+            return array_values($inputs);
+        };
+
+        if ($argInputs === null) {
+            return $valuesFn;
+        }
+
+        return $valuesFn($argInputs);
     }
 
     // aliases
@@ -98,7 +139,7 @@ class Arrays
         return Collections::reduce($fn, $initial, $argInputs);
     }
 
-    public static function head(array $argInputs) //: array
+    public static function head(array $argInputs) //: callable|array
     {
         return Collections::head($argInputs);
     }

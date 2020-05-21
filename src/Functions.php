@@ -46,9 +46,16 @@ class Functions
         };
     }
 
-    public static function tap($value) //: mixed
+    public static function tap(...$argInputs) //: mixed
     {
-        var_dump($value);
-        return $value;
+        $tapFn = function (...$inputs) {
+            var_dump(...$inputs);
+            return $inputs;
+        };
+
+        if (count($argInputs) == 0) {
+            return $tapFn;
+        }
+        return $tapFn(...$argInputs);
     }
 }

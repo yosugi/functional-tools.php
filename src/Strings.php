@@ -57,8 +57,16 @@ class Strings
         return $replaceFn($subject);
     }
 
-    public static function trim(string $string) //: callable|string
+    public static function trim(?string $string = null) //: callable|string
     {
-         return trim($string);
+        $trimFn = function ($string) {
+             return trim($string);
+        };
+
+        if ($string === null) {
+            return $trimFn;
+        }
+
+        return $trimFn($string);
     }
 }
