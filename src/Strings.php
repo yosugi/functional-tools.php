@@ -5,68 +5,68 @@ namespace FunctionalTools;
 
 class Strings
 {
-    public static function split(string $delimiter, ?string $string = null) //: callable|string
+    public static function split(string $delimiter, ?string $argInput = null) //: callable|string
     {
-        $splitFn = function ($string) use ($delimiter) {
-            return explode($delimiter, $string);
+        $splitFn = function ($input) use ($delimiter) {
+            return explode($delimiter, $input);
         };
 
-        if ($string === null) {
+        if ($argInput === null) {
             return $splitFn;
         }
 
-        return $splitFn($string);
+        return $splitFn($argInput);
     }
 
-    public static function join(string $glue, ?array $pieces = null) //: callable|string
+    public static function join(string $glue, ?array $argInputs = null) //: callable|string
     {
-        $joinFn = function ($pieces) use ($glue) {
-            return implode($glue, $pieces);
+        $joinFn = function ($inputs) use ($glue) {
+            return implode($glue, $inputs);
         };
 
-        if ($pieces === null) {
+        if ($argInputs === null) {
             return $joinFn;
         }
 
-        return $joinFn($pieces);
+        return $joinFn($argInputs);
     }
 
-    public static function replace($search, $replace, ?string $subject = null) //: callable|string
+    public static function replace($search, $replace, ?string $argInput = null) //: callable|string
     {
-        $replaceFn = function ($subject) use ($search, $replace) {
-            return str_replace($search, $replace, $subject);
+        $replaceFn = function ($input) use ($search, $replace) {
+            return str_replace($search, $replace, $input);
         };
 
-        if ($subject === null) {
+        if ($argInput === null) {
             return $replaceFn;
         }
 
-        return $replaceFn($subject);
+        return $replaceFn($argInput);
     }
 
-    public static function pregReplace($pattern, $replacement, ?string $subject = null) //: callable|string
+    public static function pregReplace($pattern, $replacement, ?string $argInput = null) //: callable|string
     {
-        $replaceFn = function ($subject) use ($pattern, $replacement) {
-            return preg_replace($pattern, $replacement, $subject);
+        $replaceFn = function ($input) use ($pattern, $replacement) {
+            return preg_replace($pattern, $replacement, $input);
         };
 
-        if ($subject === null) {
+        if ($argInput === null) {
             return $replaceFn;
         }
 
-        return $replaceFn($subject);
+        return $replaceFn($argInput);
     }
 
-    public static function trim(?string $string = null) //: callable|string
+    public static function trim(?string $argInput = null) //: callable|string
     {
-        $trimFn = function ($string) {
-             return trim($string);
+        $trimFn = function ($input) {
+             return trim($input);
         };
 
-        if ($string === null) {
+        if ($argInput === null) {
             return $trimFn;
         }
 
-        return $trimFn($string);
+        return $trimFn($argInput);
     }
 }
