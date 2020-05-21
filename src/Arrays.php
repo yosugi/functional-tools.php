@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace FunctionalTools;
 
+use FunctionalTools\Collections;
+
 class Arrays
 {
     public static function get(string $key, ?array $argInputArray = null) //: callable|mixed

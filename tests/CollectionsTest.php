@@ -48,6 +48,10 @@ class CollectionsTest extends TestCase
         $actual = Collections::head($numbers);
         $this->assertSame(1, $actual);
         $this->assertSame([1, 2, 3], $numbers);
+
+        $headFn = Collections::head();
+        $actual = $headFn($numbers);
+        $this->assertSame(1, $actual);
     }
 
     public function testRest()
@@ -56,6 +60,10 @@ class CollectionsTest extends TestCase
         $actual = Collections::rest($numbers);
         $this->assertSame([2, 3], $actual);
         $this->assertSame([1, 2, 3], $numbers);
+
+        $restFn = Collections::rest();
+        $actual = $restFn($numbers);
+        $this->assertSame([2, 3], $actual);
     }
 
     public function testSortBy()
@@ -66,13 +74,16 @@ class CollectionsTest extends TestCase
             'b' => 1,
             'c' => 3,
         ];
-        $sortFn = Collections::sortBy(fn ($a, $b) => $a <=> $b );
-        $actual = $sortFn($map);
+        $actual = Collections::sortBy(fn ($a, $b) => $a <=> $b, $map);
         $expect = [
             'b' => 1,
             'a' => 2,
             'c' => 3,
         ];
+        $this->assertSame($expect, $actual);
+
+        $sortFn = Collections::sortBy(fn ($a, $b) => $a <=> $b);
+        $actual = $sortFn($map);
         $this->assertSame($expect, $actual);
 
         $expect = [
@@ -81,5 +92,6 @@ class CollectionsTest extends TestCase
             'c' => 3,
         ];
         $this->assertSame($expect, $map);
+
     }
 }

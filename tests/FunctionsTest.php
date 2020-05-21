@@ -59,4 +59,23 @@ class FunctionsTest extends TestCase
         $actual = $curriedSum3(1)(2)(3);
         $this->assertSame(6, $actual);
     }
+
+    public function testTap()
+    {
+        $tapFn = Functions::tap();
+        ob_start();
+        $tapFn('test');
+        $actual = ob_get_clean();
+        $this->assertSame("string(4) \"test\"\n", $actual);
+
+        ob_start();
+        $tapFn = Functions::tap('test1', 'test2');
+        $actual = ob_get_clean();
+        $expect = <<<EOT
+string(5) "test1"
+string(5) "test2"
+
+EOT;
+        $this->assertSame($expect, $actual);
+    }
 }

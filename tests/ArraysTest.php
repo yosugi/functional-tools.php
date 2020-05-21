@@ -18,6 +18,9 @@ class ArraysTest extends TestCase
         $getFn = Arrays::get('b');
         $actual = $getFn($map);
         $this->assertSame(1, $actual);
+
+        $actual = Arrays::get('d', $map);
+        $this->assertNull($actual);
     }
 
     public function testSetNew()
@@ -52,8 +55,7 @@ class ArraysTest extends TestCase
             'b' => 1,
             'c' => 3,
         ];
-        $setFn = Arrays::set('a', 20);
-        $actual = $setFn($map);
+        $actual = Arrays::set('a', 20, $map);
         $expect = [
             'a' => 20,
             'b' => 1,
@@ -71,8 +73,7 @@ class ArraysTest extends TestCase
 
     public function testFlatten()
     {
-        // flatten
-        $nestedList = [
+        $nestedArray = [
             '1',
             '2',
             [
@@ -88,7 +89,7 @@ class ArraysTest extends TestCase
             '3',
         ];
 
-        $actual = Arrays::flatten($nestedList);
+        $actual = Arrays::flatten($nestedArray);
         $expect = [
             '1',
             '2',
@@ -101,35 +102,13 @@ class ArraysTest extends TestCase
             '3',
         ];
         $this->assertSame($expect, $actual);
-    }
 
-    public function testKeys()
-    {
-        // keys
-        $map = [
-            'a' => 2,
-            'b' => 1,
-            'c' => 3,
-        ];
-        $actual = Arrays::keys($map);
-        $this->assertSame(['a', 'b', 'c'], $actual);
-    }
-
-    public function testValues()
-    {
-        // values
-        $map = [
-            'a' => 2,
-            'b' => 1,
-            'c' => 3,
-        ];
-        $actual = Arrays::values($map);
-        $this->assertSame([2, 1, 3], $actual);
+        $flattenFn = Arrays::flatten();
+        $actual = $flattenFn($nestedArray);
     }
 
     public function testToPairs()
     {
-        // toPairs
         $map = [
             'a' => 2,
             'b' => 1,
@@ -142,11 +121,14 @@ class ArraysTest extends TestCase
             ['c', 3],
         ];
         $this->assertSame($expect, $actual);
+
+        $toPairsFn = Arrays::toPairs();
+        $actual = $toPairsFn($map);
+        $this->assertSame($expect, $actual);
     }
 
     public function testFromPairs()
     {
-        // fromPairs
         $pairs = [
             ['a', 2],
             ['b', 1],
@@ -159,5 +141,39 @@ class ArraysTest extends TestCase
             'c' => 3,
         ];
         $this->assertSame($expect, $actual);
+
+        $fromPairsFn = Arrays::fromPairs();
+        $actual = $fromPairsFn($pairs);
+        $this->assertSame($expect, $actual);
+    }
+
+    public function testKeys()
+    {
+        $map = [
+            'a' => 2,
+            'b' => 1,
+            'c' => 3,
+        ];
+        $actual = Arrays::keys($map);
+        $this->assertSame(['a', 'b', 'c'], $actual);
+
+        $keysFn = Arrays::keys();
+        $actual = $keysFn($map);
+        $this->assertSame(['a', 'b', 'c'], $actual);
+    }
+
+    public function testValues()
+    {
+        $map = [
+            'a' => 2,
+            'b' => 1,
+            'c' => 3,
+        ];
+        $actual = Arrays::values($map);
+        $this->assertSame([2, 1, 3], $actual);
+
+        $valuesFn = Arrays::values();
+        $actual = $valuesFn($map);
+        $this->assertSame([2, 1, 3], $actual);
     }
 }
