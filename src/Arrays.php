@@ -17,11 +17,7 @@ class Arrays
             return null;
         };
 
-        if ($argInputArray === null) {
-            return $getFn;
-        }
-
-        return $getFn($argInputArray);
+        return $argInputArray === null ? $getFn : $getFn($argInputArray);
     }
 
     public static function set(string $key, $value, ?array $argInputArray = null) //: callable|array
@@ -32,11 +28,7 @@ class Arrays
             return $inputArray;
         };
 
-        if ($argInputArray === null) {
-            return $setFn;
-        }
-
-        return $setFn($argInputArray);
+        return $argInputArray === null ? $setFn : $setFn($argInputArray);
     }
 
     public static function flatten(?array $argInputs = null) //: callable|array
@@ -56,11 +48,7 @@ class Arrays
             return $results;
         };
 
-        if ($argInputs === null) {
-            return $flattenFn;
-        }
-
-        return $flattenFn($argInputs);
+        return $argInputs === null ? $flattenFn : $flattenFn($argInputs);
     }
 
     public static function toPairs(?array $argInputs = null) //: callable|array
@@ -73,11 +61,7 @@ class Arrays
             return $resultPairs;
         };
 
-        if ($argInputs === null) {
-            return $toPairsFn;
-        }
-
-        return $toPairsFn($argInputs);
+        return $argInputs === null ? $toPairsFn : $toPairsFn($argInputs);
     }
 
     public static function fromPairs(?array $argInputs = null) //: callable|array
@@ -91,11 +75,7 @@ class Arrays
             return $resultMap;
         };
 
-        if ($argInputs === null) {
-            return $fromPairsFn;
-        }
-
-        return $fromPairsFn($argInputs);
+        return $argInputs === null ? $fromPairsFn : $fromPairsFn($argInputs);
     }
 
     public static function keys(?array $argInputs = null) //: callable|array
@@ -104,11 +84,7 @@ class Arrays
             return array_keys($inputs);
         };
 
-        if ($argInputs === null) {
-            return $keysFn;
-        }
-
-        return $keysFn($argInputs);
+        return $argInputs === null ? $keysFn : $keysFn($argInputs);
     }
 
     public static function values(?array $argInputs = null) //: callable|array
@@ -117,11 +93,7 @@ class Arrays
             return array_values($inputs);
         };
 
-        if ($argInputs === null) {
-            return $valuesFn;
-        }
-
-        return $valuesFn($argInputs);
+        return $argInputs === null ? $valuesFn : $valuesFn($argInputs);
     }
 
     // aliases

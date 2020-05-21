@@ -17,11 +17,7 @@ class Collections
             return $results;
         };
 
-        if ($argInputs === null) {
-            return $filterFn;
-        }
-
-        return $filterFn($argInputs);
+        return $argInputs === null ? $filterFn : $filterFn($argInputs);
     }
 
     public static function map(callable $fn, ?iterable $argInputs = null) //: callable|array
@@ -35,11 +31,7 @@ class Collections
             return $results;
         };
 
-        if ($argInputs === null) {
-            return $mapFn;
-        }
-
-        return $mapFn($argInputs);
+        return $argInputs === null ? $mapFn : $mapFn($argInputs);
     }
 
     public static function reduce(callable $fn, $initial, ?iterable $argInputs = null) //: callable|mixed
@@ -52,11 +44,7 @@ class Collections
             return $acc;
         };
 
-        if ($argInputs === null) {
-            return $reduceFn;
-        }
-
-        return $reduceFn($argInputs);
+        return $argInputs === null ? $reduceFn : $reduceFn($argInputs);
     }
 
     public static function head(?iterable $argInputs = null) //: callable|array
@@ -67,11 +55,7 @@ class Collections
             }
         };
 
-        if ($argInputs === null) {
-            return $headFn;
-        }
-
-        return $headFn($argInputs);
+        return $argInputs === null ? $headFn : $headFn($argInputs);
     }
 
     public static function rest(?iterable $argInputs = null) //: callable|array
@@ -84,11 +68,7 @@ class Collections
             return array_slice($results, 1);
         };
 
-        if ($argInputs === null) {
-            return $restFn;
-        }
-
-        return $restFn($argInputs);
+        return $argInputs === null ? $restFn : $restFn($argInputs);
     }
 
     public static function sortBy(callable $fn, ?iterable $argInputs = null) //: callable|array
@@ -98,10 +78,6 @@ class Collections
             return $inputs;
         };
 
-        if ($argInputs === null) {
-            return $sortFn;
-        }
-
-        return $sortFn($argInputs);
+        return $argInputs === null ? $sortFn : $sortFn($argInputs);
     }
 }

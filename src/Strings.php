@@ -11,11 +11,7 @@ class Strings
             return explode($delimiter, $input);
         };
 
-        if ($argInput === null) {
-            return $splitFn;
-        }
-
-        return $splitFn($argInput);
+        return $argInput === null ? $splitFn : $splitFn($argInput);
     }
 
     public static function join(string $glue, ?array $argInputs = null) //: callable|string
@@ -24,11 +20,7 @@ class Strings
             return implode($glue, $inputs);
         };
 
-        if ($argInputs === null) {
-            return $joinFn;
-        }
-
-        return $joinFn($argInputs);
+        return $argInputs === null ? $joinFn : $joinFn($argInputs);
     }
 
     public static function replace($search, $replace, ?string $argInput = null) //: callable|string
@@ -37,24 +29,16 @@ class Strings
             return str_replace($search, $replace, $input);
         };
 
-        if ($argInput === null) {
-            return $replaceFn;
-        }
-
-        return $replaceFn($argInput);
+        return $argInput === null ? $replaceFn : $replaceFn($argInput);
     }
 
     public static function pregReplace($pattern, $replacement, ?string $argInput = null) //: callable|string
     {
-        $replaceFn = function ($input) use ($pattern, $replacement) {
+        $pregReplaceFn = function ($input) use ($pattern, $replacement) {
             return preg_replace($pattern, $replacement, $input);
         };
 
-        if ($argInput === null) {
-            return $replaceFn;
-        }
-
-        return $replaceFn($argInput);
+        return $argInput === null ? $pregReplaceFn : $pregReplaceFn($argInput);
     }
 
     public static function trim(?string $argInput = null) //: callable|string
@@ -63,10 +47,6 @@ class Strings
              return trim($input);
         };
 
-        if ($argInput === null) {
-            return $trimFn;
-        }
-
-        return $trimFn($argInput);
+        return $argInput === null ? $trimFn : $trimFn($argInput);
     }
 }
