@@ -109,12 +109,12 @@ class Arrays
         return Collections::reduce($fn, $initial, $argInputs);
     }
 
-    public static function head(array $argInputs) //: callable|array
+    public static function head(?array $argInputs = null) //: callable|array
     {
         return Collections::head($argInputs);
     }
 
-    public static function rest(array $argInputs) //: callable|array
+    public static function rest(?array $argInputs = null) //: callable|array
     {
         return Collections::rest($argInputs);
     }
