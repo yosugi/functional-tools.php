@@ -101,7 +101,7 @@ class Arrays
 
     public static function map(callable $fn, ?array $argInputs = null) //: callable|array
     {
-        return Collections::filter($predicate, $argInputs);
+        return Collections::map($fn, $argInputs);
     }
 
     public static function reduce(callable $fn, $initial, ?array $argInputs = null) //: callable|mixed
