@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\FunctionalTools;
+namespace FunctionalTools\Tests;
 
 use ArrayObject;
 use PHPUnit\Framework\TestCase;

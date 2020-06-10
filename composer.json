@@ -21,6 +21,11 @@
             "FunctionalTools\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "FunctionalTools\\Tests\\": "tests/"
+        }
+    },
     "scripts": {
         "test": [
             "phpunit"
