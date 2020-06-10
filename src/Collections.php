@@ -75,11 +75,11 @@ class Collections
     {
         $sortFn = function ($inputs) use ($fn) {
             $array = [];
-            foreach($inputs as $key => $value) {
-                $array[$key] = $value;
+            foreach($inputs as $value) {
+                $array[] = $value;
             }
             uasort($array, $fn);
-            return $array;
+            return array_values($array);
         };
 
         return $argInputs === null ? $sortFn : $sortFn($argInputs);

@@ -92,6 +92,16 @@ class Arrays
         return $argInputs === null ? $valuesFn : $valuesFn($argInputs);
     }
 
+    public static function sortBy(callable $fn, ?array $argInputs = null) //: callable|array
+    {
+        $sortFn = function ($inputs) use ($fn) {
+            uasort($inputs, $fn);
+            return $inputs;
+        };
+
+        return $argInputs === null ? $sortFn : $sortFn($argInputs);
+    }
+
     // aliases
 
     public static function filter(callable $predicate, ?array $argInputs = null) //: callable|array
@@ -117,10 +127,5 @@ class Arrays
     public static function rest(?array $argInputs = null) //: callable|array
     {
         return Collections::rest($argInputs);
-    }
-
-    public static function sortBy(callable $fn, ?array $argInputs = null) //: callable|array
-    {
-        return Collections::sortBy($fn, $argInputs);
     }
 }

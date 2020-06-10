@@ -70,15 +70,15 @@ class CollectionsTest extends TestCase
     {
         // sortBy
         $map = new ArrayObject([
-            'a' => 2,
-            'b' => 1,
-            'c' => 3,
+            2,
+            1,
+            3,
         ]);
         $actual = Collections::sortBy(fn ($a, $b) => $a <=> $b, $map);
         $expect = [
-            'b' => 1,
-            'a' => 2,
-            'c' => 3,
+            1,
+            2,
+            3,
         ];
         $this->assertSame($expect, $actual);
 
@@ -87,9 +87,9 @@ class CollectionsTest extends TestCase
         $this->assertSame($expect, $actual);
 
         $expect = new ArrayObject([
-            'a' => 2,
-            'b' => 1,
-            'c' => 3,
+            2,
+            1,
+            3,
         ]);
         $this->assertEquals($expect, $map);
     }
