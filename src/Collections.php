@@ -47,7 +47,7 @@ class Collections
         return $argInputs === null ? $reduceFn : $reduceFn($argInputs);
     }
 
-    public static function head(?iterable $argInputs = null) //: callable|array
+    public static function head(?iterable $argInputs = null) //: callable|mixed
     {
         $headFn = function ($inputs) {
             foreach ($inputs as $value) {
@@ -74,8 +74,12 @@ class Collections
     public static function sortBy(callable $fn, ?iterable $argInputs = null) //: callable|array
     {
         $sortFn = function ($inputs) use ($fn) {
-            uasort($inputs, $fn);
-            return $inputs;
+            $array = [];
+            foreach($inputs as $key => $value) {
+                $array[$key] = $value;
+            }
+            uasort($array, $fn);
+            return $array;
         };
 
         return $argInputs === null ? $sortFn : $sortFn($argInputs);

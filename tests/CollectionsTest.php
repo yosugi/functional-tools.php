@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Tests\FunctionalTools;
 
+use ArrayObject;
 use PHPUnit\Framework\TestCase;
 use FunctionalTools\Collections;
 
@@ -10,7 +11,7 @@ class CollectionsTest extends TestCase
 {
     public function testFilter()
     {
-        $numbers = range(1, 5);
+        $numbers = new ArrayObject(range(1, 5));
         $selectEvenFn = Collections::filter(fn ($val) => $val % 2 == 0);
         $actual = $selectEvenFn($numbers);
         $this->assertSame([1 => 2, 3 => 4], $actual);
@@ -21,10 +22,9 @@ class CollectionsTest extends TestCase
 
     public function testMap()
     {
-        $numbers = range(1, 5);
+        $numbers = new ArrayObject(range(1, 5));
         $incrementFn = Collections::map(fn ($val) => $val + 1);
         $actual = $incrementFn($numbers);
-        assert($actual === [2, 3, 4, 5, 6]);
         $this->assertSame([2, 3, 4, 5, 6], $actual);
 
         $actual = Collections::map(fn ($val) => $val + 1, $numbers);
@@ -33,7 +33,7 @@ class CollectionsTest extends TestCase
 
     public function testReduce()
     {
-        $numbers = range(1, 5);
+        $numbers = new ArrayObject(range(1, 5));
         $sumFn = Collections::reduce(fn ($acc, $val) => $acc + $val, 0);
         $actual = $sumFn($numbers);
         $this->assertSame(15, $actual);
@@ -44,10 +44,10 @@ class CollectionsTest extends TestCase
 
     public function testHead()
     {
-        $numbers = [1, 2, 3];
+        $numbers = new ArrayObject([1, 2, 3]);
         $actual = Collections::head($numbers);
         $this->assertSame(1, $actual);
-        $this->assertSame([1, 2, 3], $numbers);
+        $this->assertEquals(new ArrayObject([1, 2, 3]), $numbers);
 
         $headFn = Collections::head();
         $actual = $headFn($numbers);
@@ -56,10 +56,10 @@ class CollectionsTest extends TestCase
 
     public function testRest()
     {
-        $numbers = [1, 2, 3];
+        $numbers = new ArrayObject([1, 2, 3]);
         $actual = Collections::rest($numbers);
         $this->assertSame([2, 3], $actual);
-        $this->assertSame([1, 2, 3], $numbers);
+        $this->assertEquals(new ArrayObject([1, 2, 3]), $numbers);
 
         $restFn = Collections::rest();
         $actual = $restFn($numbers);
@@ -69,11 +69,11 @@ class CollectionsTest extends TestCase
     public function testSortBy()
     {
         // sortBy
-        $map = [
+        $map = new ArrayObject([
             'a' => 2,
             'b' => 1,
             'c' => 3,
-        ];
+        ]);
         $actual = Collections::sortBy(fn ($a, $b) => $a <=> $b, $map);
         $expect = [
             'b' => 1,
@@ -86,12 +86,11 @@ class CollectionsTest extends TestCase
         $actual = $sortFn($map);
         $this->assertSame($expect, $actual);
 
-        $expect = [
+        $expect = new ArrayObject([
             'a' => 2,
             'b' => 1,
             'c' => 3,
-        ];
-        $this->assertSame($expect, $map);
-
+        ]);
+        $this->assertEquals($expect, $map);
     }
 }
