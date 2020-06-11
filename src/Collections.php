@@ -53,6 +53,7 @@ class Collections
             foreach ($inputs as $value) {
                 return $value;
             }
+            return null;
         };
 
         return $argInputs === null ? $headFn : $headFn($argInputs);

@@ -44,6 +44,11 @@ class CollectionsTest extends TestCase
 
     public function testHead()
     {
+        // empty case
+        $actual = Collections::head([]);
+        $this->assertSame(null, $actual);
+
+        // usual case
         $numbers = new ArrayObject([1, 2, 3]);
         $actual = Collections::head($numbers);
         $this->assertSame(1, $actual);
@@ -56,6 +61,11 @@ class CollectionsTest extends TestCase
 
     public function testRest()
     {
+        // empty case
+        $actual = Collections::rest([]);
+        $this->assertSame([], $actual);
+
+        // usual case
         $numbers = new ArrayObject([1, 2, 3]);
         $actual = Collections::rest($numbers);
         $this->assertSame([2, 3], $actual);
