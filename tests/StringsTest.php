@@ -57,4 +57,36 @@ class StringsTest extends TestCase
         $actual = Strings::trim(" a\tb\nc\r");
         $this->assertSame("a\tb\nc", $actual);
     }
+
+    public function testStartsWith()
+    {
+        $actual = Strings::startsWith('start', '');
+        $this->assertFalse($actual);
+
+        $actual = Strings::startsWith('', 'start string');
+        $this->assertFalse($actual);
+
+        $startsWithFn = Strings::startsWith('start');
+        $actual = $startsWithFn('start string');
+        $this->assertTrue($actual);
+
+        $actual = Strings::startsWith('start', ' start string');
+        $this->assertFalse($actual);
+    }
+
+    public function testEndsWith()
+    {
+        $actual = Strings::endsWith('end', '');
+        $this->assertFalse($actual);
+
+        $actual = Strings::endsWith('', 'string end');
+        $this->assertFalse($actual);
+
+        $endsWithFn = Strings::endsWith('end');
+        $actual = $endsWithFn('string end');
+        $this->assertTrue($actual);
+
+        $actual = Strings::endsWith('end', 'string end ');
+        $this->assertFalse($actual);
+    }
 }

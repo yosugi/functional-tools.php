@@ -39,4 +39,35 @@ class Strings
 
         return $argInput === null ? $trimFn : $trimFn($argInput);
     }
+
+    public static function startsWith(string $search, ?string $argInput = null) //: callable|boolean
+    {
+        $startsWithFn = function ($input) use ($search) {
+            if ($search === '') {
+                return false;
+            }
+
+            return strpos($input, $search) === 0;
+        };
+
+        return $argInput === null ? $startsWithFn : $startsWithFn($argInput);
+    }
+
+    public static function endsWith(string $search, ?string $argInput = null) //: callable|boolean
+    {
+        $endsWithFn = function ($input) use ($search) {
+            if ($search === '') {
+                return false;
+            }
+
+            $offset = -1 * min(strlen($input), strlen($search));
+            $position = strpos($input, $search, $offset);
+
+            $expectPosition = strlen($input) - strlen($search);
+
+            return ($position === $expectPosition);
+        };
+
+        return $argInput === null ? $endsWithFn : $endsWithFn($argInput);
+    }
 }
