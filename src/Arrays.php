@@ -10,11 +10,9 @@ class Arrays
     public static function get(string $key, ?array $argInputArray = null) //: callable|mixed
     {
         $getFn = function ($inputArray) use ($key) {
-            if (array_key_exists($key, $inputArray)) {
-                return $inputArray[$key];
-            }
+            $keys = explode('.', $key);
 
-            return null;
+            return self::getRec($keys, $inputArray);
         };
 
         return $argInputArray === null ? $getFn : $getFn($argInputArray);
@@ -127,5 +125,30 @@ class Arrays
     public static function rest(?array $argInputs = null) //: callable|array
     {
         return Collections::rest($argInputs);
+    }
+
+    // private
+    /**
+     * @param array<string> $keys
+     * @param array $inputArray
+     */
+    public static function getRec(array $keys, array $inputArray)
+    {
+        if (empty($keys)) {
+            return null;
+        }
+
+        $key = self::head($keys);
+        if (!array_key_exists($key, $inputArray)) {
+            return null;
+        }
+
+        $value = $inputArray[$key];
+        if (!is_array($value)) {
+            return $value;
+        }
+
+        $restKeys = self::rest($keys);
+        return self::getRec($restKeys, $value);
     }
 }
