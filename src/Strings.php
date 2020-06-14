@@ -19,7 +19,7 @@ class Strings
         return $argInputs === null ? $joinFn : $joinFn($argInputs);
     }
 
-    public static function replace($search, $replace, ?string $argInput = null) //: callable|string
+    public static function replace(string $search, string $replace, ?string $argInput = null) //: callable|string
     {
         $replaceFn = fn ($input) => str_replace($search, $replace, $input);
 
