@@ -10,29 +10,29 @@ class ArraysTest extends TestCase
 {
     public function testGet()
     {
-        $map = [
+        $array = [
             'a' => 2,
             'b' => 1,
             'c' => 3,
         ];
 
         // empty case
-        $actual = Arrays::get('', $map);
+        $actual = Arrays::get('', $array);
         $this->assertNull($actual);
 
         // usual function case
         $getFn = Arrays::get('b');
-        $actual = $getFn($map);
+        $actual = $getFn($array);
         $this->assertSame(1, $actual);
 
         // nothing key case
-        $actual = Arrays::get('d', $map);
+        $actual = Arrays::get('d', $array);
         $this->assertNull($actual);
     }
 
     public function testGetNested()
     {
-        $nestedMap = [
+        $nestedArray = [
             'a' => '1',
             'b' => [
                 'a' => '21',
@@ -46,17 +46,21 @@ class ArraysTest extends TestCase
         ];
 
         // illegal case
-        $actual = Arrays::get('.', $nestedMap);
+        $actual = Arrays::get('.', $nestedArray);
         $this->assertNull($actual);
 
         // usual functoin case
         $getFn = Arrays::get('b.c.a');
-        $actual = $getFn($nestedMap);
+        $actual = $getFn($nestedArray);
         $this->assertSame('231', $actual);
 
         // nothing key case
-        $actual = Arrays::get('b.c.c', $nestedMap);
+        $actual = Arrays::get('b.c.c', $nestedArray);
         $this->assertNull($actual);
+
+        // usual array case
+        $actual = Arrays::get(['b', 'c', 'a'], $nestedArray);
+        $this->assertSame('231', $actual);
     }
 
     public function testSetNew()

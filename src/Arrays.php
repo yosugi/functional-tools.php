@@ -7,12 +7,20 @@ use FunctionalTools\Collections;
 
 class Arrays
 {
-    public static function get(string $key, ?array $argInputArray = null) //: callable|mixed
+    /**
+     * @param array<string>|string $key
+     * @param array $argInputArray
+     */
+    public static function get($key, ?array $argInputArray = null) //: callable|mixed
     {
-        $getFn = function ($inputArray) use ($key) {
+        $keys = $key;
+        if (is_string($key)) {
             $keys = explode('.', $key);
+        }
 
-            return self::getRec($keys, $inputArray);
+        $getFn = function ($inputArray) use ($keys) {
+            $ret = self::getRec($keys, $inputArray);
+            return $ret;
         };
 
         return $argInputArray === null ? $getFn : $getFn($argInputArray);
