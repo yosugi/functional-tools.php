@@ -60,9 +60,7 @@ class Strings
                 return false;
             }
 
-            $offset = -1 * min(strlen($input), strlen($search));
-            $position = strpos($input, $search, $offset);
-
+            $position = strrpos($input, $search);
             $expectPosition = strlen($input) - strlen($search);
 
             return ($position === $expectPosition);
