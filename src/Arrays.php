@@ -19,19 +19,25 @@ class Arrays
         }
 
         $getFn = function ($inputArray) use ($keys) {
-            $ret = self::getRec($keys, $inputArray);
-            return $ret;
+            return self::getRec($keys, $inputArray);
         };
 
         return $argInputArray === null ? $getFn : $getFn($argInputArray);
     }
 
-    public static function set(string $key, $value, ?array $argInputArray = null) //: callable|array
+    /**
+     * @param array<string>|string $key
+     * @param mixed $value
+     * @param array<mixed> $argInputArray
+     */
+    public static function set($key, $value, ?array $argInputArray = null) //: callable|array
     {
-        $setFn = function ($inputArray) use ($key, $value) {
-            $inputArray[$key] = $value;
-
-            return $inputArray;
+        $keys = $key;
+        if (is_string($key)) {
+            $keys = explode('.', $key);
+        }
+        $setFn = function ($inputArray) use ($keys, $value) {
+            return self::setRec($keys, $value, $inputArray);
         };
 
         return $argInputArray === null ? $setFn : $setFn($argInputArray);
@@ -136,6 +142,7 @@ class Arrays
     }
 
     // private
+
     /**
      * @param array<string> $keys
      * @param array $inputArray
@@ -158,5 +165,32 @@ class Arrays
 
         $restKeys = self::rest($keys);
         return self::getRec($restKeys, $value);
+    }
+
+    /**
+     * @param array<string> $keys
+     * @param mixed $value
+     * @param array<mixed> $inputArray
+     * @return array|mixed
+     */
+    public static function setRec(array $keys, $value, array $inputArray) // array|mixed
+    {
+        if (empty($keys)) {
+            return $value;
+        }
+
+        $key = self::head($keys);
+        $subArray = array_key_exists($key, $inputArray) ? $inputArray[$key] : [];
+        if (!is_array($subArray)) {
+            $subArray = [];
+        }
+
+        $restKeys = self::rest($keys);
+        $subArray = self::setRec($restKeys, $value, $subArray);
+
+        $outputArray = $inputArray;
+        $outputArray[$key] = $subArray;
+
+        return $outputArray;
     }
 }

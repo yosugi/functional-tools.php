@@ -111,6 +111,124 @@ class ArraysTest extends TestCase
         $this->assertSame($expect, $map);
     }
 
+    public function testSetNested()
+    {
+        $nestedArray = [
+            'a' => '1',
+            'b' => [
+                'a' => '21',
+                'b' => '22',
+                'c' => [
+                    'a' => '231',
+                    'b' => '232',
+                ],
+            ],
+            'c' => '3',
+        ];
+
+        // illegal case
+        $actual = Arrays::set('.', 'insert', $nestedArray);
+        $expect = [
+            'a' => '1',
+            'b' => [
+                'a' => '21',
+                'b' => '22',
+                'c' => [
+                    'a' => '231',
+                    'b' => '232',
+                ],
+            ],
+            'c' => '3',
+            '' => [
+                '' => 'insert',
+            ],
+        ];
+        $this->assertSame($expect, $actual);
+
+        // usual functoin case
+        $getFn = Arrays::set('b.c.b', 'update');
+        $actual = $getFn($nestedArray);
+        $expect = [
+            'a' => '1',
+            'b' => [
+                'a' => '21',
+                'b' => '22',
+                'c' => [
+                    'a' => '231',
+                    'b' => 'update',
+                ],
+            ],
+            'c' => '3',
+        ];
+        $this->assertSame($expect, $actual);
+
+        // nothing key case
+        $actual = Arrays::set('b.c.c', 'insert', $nestedArray);
+        $expect = [
+            'a' => '1',
+            'b' => [
+                'a' => '21',
+                'b' => '22',
+                'c' => [
+                    'a' => '231',
+                    'b' => '232',
+                    'c' => 'insert',
+                ],
+            ],
+            'c' => '3',
+        ];
+        $this->assertSame($expect, $actual);
+
+        // override value case
+        $actual = Arrays::set('b.b.b', 'insert', $nestedArray);
+        $expect = [
+            'a' => '1',
+            'b' => [
+                'a' => '21',
+                'b' => [
+                    'b' => 'insert',
+                ],
+                'c' => [
+                    'a' => '231',
+                    'b' => '232',
+                ],
+            ],
+            'c' => '3',
+        ];
+        $this->assertSame($expect, $actual);
+
+        // usual array case
+        $actual = Arrays::set(['b', 'c', 'a'], '231updated', $nestedArray);
+        $expect = [
+            'a' => '1',
+            'b' => [
+                'a' => '21',
+                'b' => '22',
+                'c' => [
+                    'a' => '231updated',
+                    'b' => '232',
+                ],
+            ],
+            'c' => '3',
+        ];
+        $this->assertSame($expect, $actual);
+
+        // no side effect
+        $expect = [
+            'a' => '1',
+            'b' => [
+                'a' => '21',
+                'b' => '22',
+                'c' => [
+                    'a' => '231',
+                    'b' => '232',
+                ],
+            ],
+            'c' => '3',
+        ];
+        $this->assertSame($expect, $nestedArray);
+    }
+
     public function testFlatten()
     {
         $nestedArray = [
