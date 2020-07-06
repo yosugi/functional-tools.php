@@ -126,4 +126,34 @@ class CollectionsTest extends TestCase
         ];
         $this->assertSame($expect, $actual);
     }
+
+    public function testToArray()
+    {
+        $paramList = new ArrayObject([
+            1,
+            2,
+            3,
+        ]);
+        $actual = Collections::toArray($paramList);
+        $expect = [
+            1,
+            2,
+            3,
+        ];
+        $this->assertSame($expect, $actual);
+
+        $paramMap = new ArrayObject([
+            'a' => 1,
+            'b' => 2,
+            'c' => 3,
+        ]);
+        $toArrayFn = Collections::toArray();
+        $actual = $toArrayFn($paramMap);
+        $expect = [
+            1,
+            2,
+            3,
+        ];
+        $this->assertSame($expect, $actual);
+    }
 }

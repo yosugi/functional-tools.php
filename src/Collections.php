@@ -102,4 +102,15 @@ class Collections
         return $secondArgInputs === null ? $mergeFn : $mergeFn($secondArgInputs);
     }
 
+    public static function toArray(?iterable $argInputs = null) //: callable|array
+    {
+        $toArrayFn = function ($inputs) {
+            $array = [];
+            foreach($inputs as $value) {
+                $array[] = $value;
+            }
+            return $array;
+        };
+        return $argInputs === null ? $toArrayFn : $toArrayFn($argInputs);
+    }
 }
