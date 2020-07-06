@@ -85,4 +85,21 @@ class Collections
 
         return $argInputs === null ? $sortFn : $sortFn($argInputs);
     }
+
+    public static function merge(iterable $firstArgInputs, ?iterable $secondArgInputs = null) //: callable|array
+    {
+        $mergeFn = function ($secondArgInputs) use ($firstArgInputs) {
+            $array = [];
+            foreach($firstArgInputs as $key => $value) {
+                $array[$key] = $value;
+            }
+            foreach($secondArgInputs as $key => $value) {
+                $array[$key] = $value;
+            }
+            return $array;
+        };
+
+        return $secondArgInputs === null ? $mergeFn : $mergeFn($secondArgInputs);
+    }
+
 }

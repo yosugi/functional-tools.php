@@ -103,4 +103,27 @@ class CollectionsTest extends TestCase
         ]);
         $this->assertEquals($expect, $map);
     }
+
+    public function testMerge()
+    {
+        $firstMap = new ArrayObject([
+            'a' => 1,
+            'b' => 2,
+            'c' => 3,
+        ]);
+        $secondMap = new ArrayObject([
+            'c' => 4,
+            'd' => 5,
+            'e' => 6,
+        ]);
+        $actual = Collections::merge($firstMap, $secondMap);
+        $expect = [
+            'a' => 1,
+            'b' => 2,
+            'c' => 4,
+            'd' => 5,
+            'e' => 6,
+        ];
+        $this->assertSame($expect, $actual);
+    }
 }

@@ -114,6 +114,11 @@ class Arrays
         return $argInputs === null ? $sortFn : $sortFn($argInputs);
     }
 
+    public static function merge(array $firstArgInputs, ?array $secondArgInputs = null) //: callable|array
+    {
+        return Collections::merge($firstArgInputs, $secondArgInputs);
+    }
+
     // aliases
 
     public static function filter(callable $predicate, ?array $argInputs = null) //: callable|array
@@ -141,7 +146,7 @@ class Arrays
         return Collections::rest($argInputs);
     }
 
-    // private
+    // private methods
 
     /**
      * @param array<string> $keys

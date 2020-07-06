@@ -419,4 +419,27 @@ class ArraysTest extends TestCase
         ];
         $this->assertSame($expect, $map);
     }
+
+    public function testMerge()
+    {
+        $firstMap = [
+            'a' => 1,
+            'b' => 2,
+            'c' => 3,
+        ];
+        $secondMap = [
+            'c' => 4,
+            'd' => 5,
+            'e' => 6,
+        ];
+        $actual = Arrays::merge($firstMap, $secondMap);
+        $expect = [
+            'a' => 1,
+            'b' => 2,
+            'c' => 4,
+            'd' => 5,
+            'e' => 6,
+        ];
+        $this->assertSame($expect, $actual);
+    }
 }
