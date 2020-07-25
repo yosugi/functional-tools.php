@@ -58,6 +58,16 @@ class StringsTest extends TestCase
         $this->assertSame("a\tb\nc", $actual);
     }
 
+    public function testIsEmpty()
+    {
+        $isEmptyFn = Strings::isEmpty();
+        $actual = $isEmptyFn('');
+        $this->assertTrue($actual);
+
+        $actual = Strings::isEmpty('0');
+        $this->assertFalse($actual);
+    }
+
     public function testStartsWith()
     {
         $actual = Strings::startsWith('start', '');

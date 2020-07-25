@@ -40,6 +40,13 @@ class Strings
         return $argInput === null ? $trimFn : $trimFn($argInput);
     }
 
+    public static function isEmpty(?string $argInput = null) //: callable|string
+    {
+        $isEmptyFn = fn ($input) => strlen($input) === 0;
+
+        return $argInput === null ? $isEmptyFn : $isEmptyFn($argInput);
+    }
+
     public static function startsWith(string $search, ?string $argInput = null) //: callable|boolean
     {
         $startsWithFn = function ($input) use ($search) {
